@@ -3,655 +3,728 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bhavaveena | భావవీణ - Telugu Literary Journal</title>
+    <title>Bhavaveena | భావవీణ - International Refereed Telugu Journal</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --brand-maroon: #800000;
-            --brand-gold: #D4AF37;
-            --brand-paper: #fdfcf8;
-            --brand-dark: #1a1a1a;
-            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --brand-maroon: #721c24;
+            --brand-gold: #b8860b;
+            --bg-paper: #ffffff;
+            --bg-sidebar: #fcfcfc;
+            --text-main: #1a1a1b;
+            --border-color: #ececec;
+            --shadow-subtle: 0 4px 20px rgba(0,0,0,0.04);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
             font-family: 'Inter', 'Noto Sans Telugu', sans-serif;
-            background-color: var(--brand-paper);
-            color: var(--brand-dark);
-            overflow-x: hidden;
+            background-color: #f4f5f7;
+            color: var(--text-main);
+            line-height: 1.7;
         }
 
         .font-serif { font-family: 'Playfair Display', serif; }
-        .telugu-text { font-family: 'Noto Sans Telugu', sans-serif; line-height: 1.8; }
+        .telugu-text { font-family: 'Noto Sans Telugu', sans-serif; }
 
-        /* Smooth View Transitions */
-        .view-fade {
-            animation: fadeIn 0.5s ease;
+        /* Navigation Ticker */
+        .academic-ticker {
+            background: #fff;
+            border-bottom: 2px solid var(--brand-maroon);
+            height: 48px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-subtle);
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Top Bar */
-        .top-bar {
-            background-color: var(--brand-maroon);
-            color: rgba(255,255,255,0.8);
+        .ticker-label {
+            background: var(--brand-maroon);
+            color: white;
+            padding: 0 25px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            z-index: 10;
+            text-transform: uppercase;
             font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+        }
+        .ticker-text {
+            white-space: nowrap;
+            display: inline-block;
+            animation: marquee 60s linear infinite;
+            padding-left: 20px;
+            color: var(--brand-maroon);
+            font-weight: 600;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
         }
 
-        /* Header & Logo */
-        header {
+        /* Branding Area */
+        .journal-branding {
             background: white;
-            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
         }
-        .logo-text {
+        .logo-container {
+            display: block;
+            text-decoration: none;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .main-logo-img {
+            width: 100%;
+            height: auto;
+            max-height: 280px;
+            object-fit: contain;
+        }
+
+        /* SIDEBAR DRAWER MENU */
+        .navbar {
+            background: white !important;
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            z-index: 1050;
+        }
+        
+        .nav-toggle-btn {
+            background: none;
+            border: none;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
             color: var(--brand-maroon);
             font-weight: 700;
-            font-size: 4.5rem;
-            transition: var(--transition-smooth);
-            cursor: pointer;
-        }
-        .logo-text:hover { opacity: 0.8; }
-
-        /* Navbar Customization */
-        .navbar {
-            background-color: white !important;
-            border-bottom: 1px solid #ddd;
-            padding: 0;
-        }
-        .nav-link {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--brand-dark) !important;
             text-transform: uppercase;
-            padding: 1.25rem 1rem !important;
-            border-bottom: 3px solid transparent;
-            transition: var(--transition-smooth);
-        }
-        .nav-link:hover {
-            color: var(--brand-maroon) !important;
-            border-bottom-color: var(--brand-maroon);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
         }
 
-        /* Cards & Components */
-        .book-card {
+        /* Side Drawer Styling */
+        .mobile-side-drawer {
+            position: fixed;
+            top: 0;
+            left: -320px; /* Hidden by default */
+            width: 300px;
+            height: 100%;
+            background: #fff;
+            z-index: 2100;
+            transition: left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 30px 25px;
+        }
+        .mobile-side-drawer.open { left: 0; }
+
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        .drawer-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--brand-maroon);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        .drawer-close-btn {
+            background: var(--brand-maroon);
+            color: #fff;
             border: none;
-            background: white;
-            transition: var(--transition-smooth);
-            border-bottom: 3px solid transparent;
-        }
-        .book-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            border-bottom-color: var(--brand-maroon);
-        }
-        .featured-hero {
-            background: white;
-            border: 1px solid #eee;
-            transition: var(--transition-smooth);
-        }
-        .featured-hero:hover {
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-        }
-
-        /* PDF Viewer Placeholder */
-        .pdf-viewer-box {
-            background: #f0f0f0;
-            border: 2px dashed #ccc;
-            height: 700px;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
         }
+        .drawer-close-btn:hover { transform: rotate(90deg); background: #000; }
 
-        /* Sidebar Widgets */
-        .sidebar-widget {
-            background: white;
-            padding: 1.5rem;
-            border: 1px solid #eee;
-            margin-bottom: 2rem;
+        .drawer-menu-list {
+            list-style: none;
+            padding: 0;
         }
-        .widget-title {
-            font-size: 0.7rem;
-            font-weight: 800;
+        .drawer-menu-list li {
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+        }
+        .mobile-side-drawer.open li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        /* Stagger links */
+        .mobile-side-drawer.open li:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-side-drawer.open li:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-side-drawer.open li:nth-child(3) { transition-delay: 0.2s; }
+        .mobile-side-drawer.open li:nth-child(4) { transition-delay: 0.25s; }
+        .mobile-side-drawer.open li:nth-child(5) { transition-delay: 0.3s; }
+        .mobile-side-drawer.open li:nth-child(6) { transition-delay: 0.35s; }
+        .mobile-side-drawer.open li:nth-child(7) { transition-delay: 0.4s; }
+
+        .drawer-link {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #333;
+            text-decoration: none;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
+            display: block;
+            padding: 10px 0;
+            border-bottom: 1px solid transparent;
+            transition: var(--transition);
+        }
+        .drawer-link:hover { color: var(--brand-maroon); padding-left: 10px; border-bottom-color: var(--brand-maroon); }
+
+        /* Dim Backdrop */
+        .drawer-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2050;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .drawer-backdrop.show { display: block; opacity: 1; }
+
+        .nav-link {
+            color: #333 !important;
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 1.4rem 1.2rem !important;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 4px solid transparent;
+            transition: var(--transition);
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--brand-maroon) !important;
+            border-bottom-color: var(--brand-maroon);
+            background: #fbfbfb;
+        }
+
+        /* Layout & Sidebar */
+        .main-container {
+            background: white;
+            box-shadow: 0 0 40px rgba(0,0,0,0.03);
+            margin-top: 40px;
+            margin-bottom: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .sidebar {
+            background: var(--bg-sidebar);
+            border-left: 1px solid var(--border-color);
+            padding: 30px 20px;
+        }
+        .sidebar-heading {
+            font-size: 0.75rem;
+            font-weight: 800;
             color: var(--brand-maroon);
+            text-transform: uppercase;
             border-bottom: 2px solid var(--brand-maroon);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.25rem;
+            margin-bottom: 20px;
+            padding-bottom: 5px;
+            letter-spacing: 1px;
+            text-align: center;
         }
 
-        footer {
-            background: var(--brand-dark);
-            color: #aaa;
+        /* Poet Page Styling */
+        .poet-list-card {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .poet-list-card:hover { border-color: var(--brand-maroon); background: #fffafb; }
+        .poet-name { font-weight: 600; color: var(--brand-maroon); text-decoration: none; }
+        .poet-name:hover { text-decoration: underline; }
+        .poet-letter-header {
+            background: var(--brand-maroon);
+            color: white;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+
+        /* Article Styling */
+        .article-card { padding: 30px 0; border-bottom: 1px solid #f0f0f0; }
+        .article-card:last-child { border-bottom: none; }
+        .article-meta { font-size: 0.7rem; color: #999; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+        .article-title { font-size: 1.5rem; font-weight: 700; color: #000; text-decoration: none; display: block; line-height: 1.3; }
+        .article-title:hover { color: var(--brand-maroon); }
+
+        /* Professional Footer */
+        .journal-footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 70px 0 0 0;
             border-top: 6px solid var(--brand-maroon);
+            font-size: 0.9rem;
         }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: #fff; margin-bottom: 15px; display: block; }
+        .footer-heading { color: #fff; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid rgba(255,255,255,0.1); display: inline-block; }
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: #94a3b8; text-decoration: none; transition: var(--transition); display: flex; align-items: center; }
+        .footer-links a:hover { color: #fff; padding-left: 8px; }
+        .footer-links a::before { content: "\F285"; font-family: "bootstrap-icons"; margin-right: 10px; font-size: 0.7rem; color: var(--brand-maroon); }
+        .footer-contact-item { display: flex; gap: 15px; margin-bottom: 20px; }
+        .footer-contact-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--brand-maroon); font-size: 1.2rem; flex-shrink: 0; }
+        .social-circle { width: 35px; height: 35px; background: rgba(255,255,255,0.1); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #fff; margin-right: 10px; transition: var(--transition); }
+        .social-circle:hover { background: var(--brand-maroon); transform: translateY(-3px); }
+        .footer-bottom-bar { background: #020617; padding: 25px 0; margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .motto-box { background: rgba(114, 28, 36, 0.1); border-left: 3px solid var(--brand-maroon); padding: 15px; margin-top: 20px; font-style: italic; }
 
-        .btn-brand {
-            background-color: var(--brand-maroon);
-            color: white;
-            border-radius: 0;
-            font-weight: 600;
-            padding: 0.6rem 1.5rem;
-            transition: var(--transition-smooth);
-        }
-        .btn-brand:hover {
-            background-color: #5a0000;
-            color: white;
-            box-shadow: 0 4px 12px rgba(128,0,0,0.2);
-        }
+        /* Archive Tree */
+        .archive-tree { list-style: none; padding-left: 0; }
+        .archive-year-toggle { cursor: pointer; font-weight: 800; display: block; margin-top: 15px; color: var(--brand-maroon); font-size: 0.9rem; }
+        .archive-months-container { display: none; margin-left: 15px; }
+        .archive-month-toggle { cursor: pointer; display: block; padding: 5px 0; color: #444; font-size: 0.85rem; font-weight: 600; }
+        .archive-posts-container { display: none; margin-left: 15px; border-left: 1px dashed #ccc; padding-left: 10px; }
+        .archive-post-link { display: block; font-size: 0.8rem; color: #666; text-decoration: none; padding: 4px 0; }
+        .archive-post-link:hover { color: var(--brand-maroon); }
 
-        /* Sticky Nav Fix */
-        .sticky-top {
-            z-index: 1020;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
+        /* PDF Viewer Styling */
+        .pdf-viewer-container { width: 100%; height: 800px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; background: #eee; }
+        iframe { border: none; }
+
+        /* Sidebar Helpers */
+        .sidebar-img { width: 110px; height: 110px; object-fit: cover; border: 3px solid white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 10px; background: #fff; }
+        .audio-item { font-size: 0.8rem; padding: 8px 0; border-bottom: 1px solid #eee; display: flex; align-items: start; gap: 8px; }
+        .audio-item i { color: var(--brand-maroon); margin-top: 3px; }
+        .download-item { font-size: 0.8rem; padding: 8px 0; border-bottom: 1px solid #eee; display: block; color: #444; text-decoration: none; font-weight: 600; }
+        .download-item:hover { color: var(--brand-maroon); }
+        .instruct-img { width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; margin-top: 10px; }
+
+        .view-content { animation: fadeInUp 0.5s ease both; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        #google_translate_element { display: inline-block; }
+        .btn-brand { background-color: var(--brand-maroon); color: white; border: 1px solid var(--brand-maroon); }
+        .btn-brand:hover { background-color: #5a161d; color: white; }
     </style>
 </head>
 <body>
 
-    <!-- TOP INFO BAR -->
-    <div class="top-bar py-2 d-none d-md-block">
+    <!-- SIDE DRAWER BACKDROP -->
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+    <!-- SIDE DRAWER MENU -->
+    <div class="mobile-side-drawer" id="sideDrawer">
+        <div class="drawer-header">
+            <h2 class="drawer-title">భావవీణ</h2>
+            <button class="drawer-close-btn" id="closeDrawer"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <ul class="drawer-menu-list">
+            <li><a href="javascript:void(0)" class="drawer-link" onclick="navigateTo('home', event)">Home</a></li>
+            <li><a href="javascript:void(0)" class="drawer-link" onclick="navigateTo('current', event)">Current Issue</a></li>
+            <li><a href="javascript:void(0)" class="drawer-link" onclick="navigateTo('archives', event)">Archives</a></li>
+            <li><a href="javascript:void(0)" class="drawer-link" onclick="navigateTo('board', event)">Editorial Board</a></li>
+            <li><a href="javascript:void(0)" class="drawer-link" onclick="navigateTo('poets', event)">Telugu Poets</a></li>
+            <li><a href="javascript:void(0)" class="drawer-link" onclick="navigateTo('submission', event)">For Authors</a></li>
+            <li><a href="javascript:void(0)" class="drawer-link" onclick="navigateTo('contact', event)">Contact Us</a></li>
+        </ul>
+    </div>
+
+    <!-- TOP NAVIGATION OVERLAY -->
+    <div class="bg-white border-bottom py-2">
         <div class="container d-flex justify-content-between align-items-center">
-            <div id="current-date">ఫిబ్రవరి 13, 2026</div>
-            <div class="d-flex gap-4">
-                <a href="#" class="text-white text-decoration-none">Archives</a>
-                <a href="#" class="text-white text-decoration-none">ISSN: 2456-4702</a>
-                <a href="#" class="text-white text-decoration-none">Subscribe</a>
+            <div class="d-flex align-items-center gap-3">
+                <div id="google_translate_element"></div>
+                <div class="d-none d-lg-block border-start ps-3 small fw-bold text-muted">
+                    ISSN: 2456-4702 | UGC Approved No: 42500
+                </div>
+            </div>
+            <div class="small fw-bold text-dark">
+                <i class="bi bi-calendar3 me-2 text-maroon"></i> <span id="current-date"></span>
             </div>
         </div>
     </div>
 
-    <!-- MAIN HEADER -->
-    <header class="py-5">
-        <div class="container text-center">
-            <h1 class="logo-text font-serif mb-0" onclick="navigateTo('home')">భావవీణ</h1>
-            <p class="text-uppercase tracking-widest small fw-bold text-muted mt-2">Bhavaveena Literary & Cultural Monthly Journal</p>
-            <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
-                <span class="badge bg-light text-dark border">ESTD 2004</span>
-                <span class="text-maroon">|</span>
-                <span class="small fw-semibold text-secondary">UGC CARE LISTED</span>
+    <!-- NEWS TICKER -->
+    <div class="academic-ticker">
+        <div class="ticker-label">News Updates</div>
+        <div class="ticker-text telugu-text">
+            ISSN నెంబర్ (2456--4702) , UGC అప్రూవల్ (No 42500). Refereed journal అయిన భావవీణ సాహిత్య మాసపత్రిక లో వ్యాసాల ప్రచురణకై పరిశోధక విద్యార్ధులు, ఆచార్యులు, అధ్యాపకులు, సాహితీ మిత్రులనుండి సద్విమర్శతో కూడిన వ్యాసాలను ఆహ్వానిస్తున్నాం. వ్యాసాలను టైప్ చేసి ప్రతి నెల 25 వ తారీఖు లోపు పంపవలెను. సంచిక ప్రతి నెల 1 వ తేదీన విడుదల చేయబడుతుంది.
+        </div>
+    </div>
+
+    <!-- HERO LOGO -->
+    <header class="journal-branding text-center">
+        <div class="container px-md-5">
+            <a href="javascript:void(0)" onclick="navigateTo('home', event)" class="logo-container">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEheUFUVbPylG419cOWhxIYgWQlinu1kcMdoB7vkQPuRkHPfa8S0rx8qWoXZpwwEIsX_1HgZh2PLqQy5G463NkRtyF9oGZOGz_nIzgXn0rB6Gx-tB_uhyphenhyphenhS44NTHNzzBEnfHo-vPO2lXyhms/s1600/BHAVA+VEENA+MONTHLY+MAGAZINE.jpg" alt="BHAVA VEENA MONTHLY MAGAZINE" class="main-logo-img">
+            </a>
+            <div class="mt-3 telugu-text fw-bold text-maroon px-3 py-1 bg-light d-inline-block rounded shadow-sm border">
+                అత్యుత్తమ తెలుగు పరిశోధన పత్రాల ప్రచురణ పత్రిక "భావవీణ"
             </div>
         </div>
     </header>
 
-    <!-- NAVIGATION -->
+    <!-- NAVIGATION BAR (DESKTOP) & TOGGLE (MOBILE) -->
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+            <!-- New Progressive Toggle -->
+            <button class="nav-toggle-btn d-lg-none" id="openDrawer">
+                <i class="bi bi-list fs-3"></i>
+                <span>Menu</span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="navigateTo('home')">హోమ్</a></li>
-                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="navigateTo('archive')">పుస్తకాలు</a></li>
-                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="navigateTo('about')">మా గురించి</a></li>
-                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="navigateTo('submit')">ప్రచురణకు పంపండి</a></li>
-                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="navigateTo('contact')">సంప్రదించండి</a></li>
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link active" href="javascript:void(0)" id="nav-home" onclick="navigateTo('home', event)">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="navigateTo('current', event)">Current Issue</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="navigateTo('archives', event)">Archives</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="navigateTo('board', event)">Editorial Board</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="navigateTo('poets', event)">Telugu Poets</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="navigateTo('submission', event)">For Authors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="navigateTo('contact', event)">Contact Us</a></li>
                 </ul>
-                <div class="d-flex align-items-center">
-                    <div class="input-group input-group-sm">
-                        <input type="text" class="form-control border-end-0" placeholder="వెతకండి...">
-                        <span class="input-group-text bg-white border-start-0 text-muted"><i class="bi bi-search"></i></span>
-                    </div>
-                </div>
             </div>
         </div>
     </nav>
 
-    <!-- CONTENT WRAPPER -->
-    <main class="container py-5 min-vh-100" id="view-container">
-        <!-- Content will be injected here via JavaScript -->
-    </main>
+    <!-- MAIN BODY -->
+    <div class="container main-container px-0">
+        <div class="row g-0">
+            <!-- MAIN CONTENT AREA -->
+            <div class="col-lg-9 p-4 p-md-5" id="view-container">
+                <!-- Content injected here -->
+            </div>
 
-    <!-- FOOTER -->
-    <footer class="py-5 mt-5">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-5">
-                    <h2 class="font-serif text-white mb-4">భావవీణ</h2>
-                    <p class="telugu-text small pe-lg-5">
-                        తెలుగు సాహిత్య వికాసానికి, పరిశోధనకు భావవీణ ఒక దిక్సూచిగా పనిచేస్తోంది. గత రెండు దశాబ్దాలుగా వేలమంది రచయితలకు, పరిశోధకులకు ఈ పత్రిక వేదికగా నిలిచింది.
-                    </p>
-                    <div class="d-flex gap-3 mt-4">
-                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle p-2" style="width:35px;height:35px;"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle p-2" style="width:35px;height:35px;"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle p-2" style="width:35px;height:35px;"><i class="bi bi-instagram"></i></a>
-                    </div>
+            <!-- SIDEBAR AREA -->
+            <div class="col-lg-3 sidebar d-none d-lg-block">
+                
+                <!-- CHIEF EDITOR -->
+                <div class="mb-4 pb-3 border-bottom text-center">
+                    <h6 class="sidebar-heading">Chief Editor</h6>
+                    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjoyOiLXZUHheLnR1NCmNtjez7OFaVazoU6FYg5q6G9oLhHH_bqLQ2zztqOS1fveW9iDyv_jmwJDEt1Uj8y-9NUIki8xpaNFYmJB0afbzW4048hcB02MK54pgl26epwkvOWchByZmqiQRr0Z9QsbOKDjDnNU2NVf7vx3Dx2N004wUiHCTalOsBDDCIhw6Jc=s200" class="rounded-circle sidebar-img" alt="Dr. Payarda Nagaiah">
+                    <h6 class="fw-bold mb-1">Dr. PAYARDA NAGAIAH</h6>
+                    <p class="x-small text-muted mb-0 telugu-text">M.A(Telugu), M.A(Pol-Sci), M.Ed, Ph.D</p>
                 </div>
-                <div class="col-lg-3">
-                    <h6 class="text-white text-uppercase small fw-bold mb-4 tracking-widest">త్వరిత లింకులు</h6>
-                    <ul class="list-unstyled small space-y-2">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-white">Editorial Board</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-white">Submission Guidelines</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-white">Subscription Plans</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-white">Privacy Policy</a></li>
+
+                <!-- DOWNLOAD INSTRUCTIONS -->
+                <div class="mb-4 text-center">
+                    <div class="p-2 bg-light border rounded small telugu-text fw-bold text-danger">ఈ క్రింది చిత్రంలో మాదిరి డౌన్లోడ్ చేసుకోండి</div>
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjcyjfAPcqp4XJjVHVVvpUyKvYR70rKqD_I7CPNz2gppXKTd7jJ3bmZUkmE2-yZqdjN6Jj2jXubkl_xmGdskhyphenhyphenOTxaLW0d6NzutWZ9StVnna6UlgrOcDZFXD9NTYoJZN1jOTzMtCAUdzAIv/s230/how+to+download+pdf+file.jpg" class="instruct-img shadow-sm">
+                </div>
+
+                <!-- SAHITI AUDIOS -->
+                <div class="mb-4">
+                    <h6 class="sidebar-heading">సాహితీ ఆడియోలు</h6>
+                    <div class="audio-item telugu-text"><i class="bi bi-play-circle-fill"></i><span>ఆంధ్రమహాభారతం నుండి పద్యాలు</span></div>
+                    <div class="audio-item telugu-text"><i class="bi bi-play-circle-fill"></i><span>జాషువా స్వీయ కవితా పఠనం</span></div>
+                    <div class="audio-item telugu-text"><i class="bi bi-play-circle-fill"></i><span>సి నారాయణరెడ్డి గజల్ "పరులకోసం..."</span></div>
+                </div>
+
+                <!-- DIRECT DOWNLOADS -->
+                <div class="mb-4">
+                    <h6 class="sidebar-heading">DIRECT DOWNLOADS</h6>
+                    <a href="#" class="download-item">BHAVA VEENA SEPTEMBER 9(1)</a>
+                    <a href="#" class="download-item">BHAVA VEENA SEPTEMBER 9(2)</a>
+                    <a href="#" class="download-item">BHAVA VEENA AUGUST 8(2)</a>
+                    <a href="#" class="download-item">BHAVA VEENA AUGUST 8(1)</a>
+                    <a href="#" class="download-item">BHAVA VEENA JULY 7</a>
+                    <a href="#" class="download-item">BHAVA VEENA JULY 7(1)</a>
+                    <a href="#" class="download-item">BHAVA VEENA JUNE 6(2)</a>
+                    <a href="#" class="download-item">BHAVAVEENA Spl.Edi-JMJ WOMENS COLLEGE.</a>
+                    <a href="#" class="download-item">MCC NATIONAL SEMINAR BOOK.</a>
+                </div>
+
+                <!-- HONOURABLE EDITOR -->
+                <div class="mb-4 pb-3 border-bottom text-center">
+                    <h6 class="sidebar-heading">Honourable Editor</h6>
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxYB2OflEbQ2551vZ-ztR1W11z2nAB93xjcIlXyIGeE2K4bw5NZYM0BoWfMLbBHXLS7BxpsGp2oZw-PHN8jnfPUmuXmRhTeomwJKuHX_kEYMZNIPWVQGoDytoUfKOPrYhAA5PQLOxU3Mvj/s160/SHANTHI.jpg" class="rounded-circle sidebar-img" alt="Dr. Pitta Santhi">
+                    <h6 class="fw-bold mb-1">Dr. PITTA SANTHI</h6>
+                    <p class="x-small text-muted mb-0 lh-base telugu-text">MA(Tel), M.Sc(Psy), M.Ed, M.Phil(Edu), Ph.D</p>
+                </div>
+
+                <!-- ADVISER -->
+                <div class="mb-4 pb-3 border-bottom text-center">
+                    <h6 class="sidebar-heading">Adviser</h6>
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgpBDBIAFA6UC2OPglVEtR4OeAPM63IFwFDhohMvLrgwRcNYlRBeESGN91OiFnw8w-yxfsNshZCinoXU9nqaCattZAVIHPWhSOiD0Epc6FNoqDqA9S22JmrN4DS6tOchndkZwxUxWnN9oTx/s172/bvs2.jpg" class="rounded-circle sidebar-img" alt="Dr. B. Venkataswamy">
+                    <h6 class="fw-bold mb-1">Dr. B. VENKATASWAMY</h6>
+                    <p class="x-small text-muted mb-0 lh-base telugu-text">MA(Tel), M.A(Ling), M.A.(San), M.A(MCJ), Ph.D</p>
+                </div>
+
+                <!-- POPULAR POSTS -->
+                <div class="mb-4">
+                    <h6 class="sidebar-heading">Popular Posts</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-3"><a href="#" class="text-decoration-none text-dark fw-semibold d-block pb-1 border-bottom">Bhavavveena --Spl Issue Achary Madabhushi</a></li>
+                        <li class="mb-3"><a href="#" class="text-decoration-none text-dark fw-semibold d-block pb-1 border-bottom">BHAVAVEENA SEPTEMBER 2021</a></li>
+                        <li class="mb-3"><a href="#" class="text-decoration-none text-dark fw-semibold d-block pb-1 border-bottom">parisodhana magazine 1 st issue</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-4">
-                    <h6 class="text-white text-uppercase small fw-bold mb-4 tracking-widest">కార్యాలయం</h6>
-                    <address class="small text-muted lh-lg">
-                        <i class="bi bi-geo-alt-fill me-2 text-maroon"></i> ప్లాట్ నెం. 45, సాహిత్య కాలనీ,<br>
-                        పబ్లిక్ లైబ్రరీ దగ్గర, గుంటూరు, 522002.<br>
-                        <i class="bi bi-envelope-fill me-2 text-maroon mt-3"></i> editor@bhavaveena.com<br>
-                        <i class="bi bi-telephone-fill me-2 text-maroon mt-2"></i> +91 98480 12345
-                    </address>
+
+                <!-- BLOG ARCHIVE -->
+                <div class="mb-4">
+                    <h6 class="sidebar-heading">Blog Archive</h6>
+                    <div class="archive-tree">
+                        <div class="archive-item">
+                            <span class="archive-year-toggle" onclick="toggleArchive(this)">▼ 2025 (15)</span>
+                            <div class="archive-months-container" style="display:block;">
+                                <div class="archive-month-item">
+                                    <span class="archive-month-toggle" onclick="toggleArchive(this)">▼ December (1)</span>
+                                    <div class="archive-posts-container" style="display:block;">
+                                        <a href="javascript:void(0)" class="archive-post-link" onclick="navigateTo('home', event)">Bhavaveena Oct 2025</a>
+                                    </div>
+                                </div>
+                                <div class="archive-month-item"><span class="archive-month-toggle" onclick="toggleArchive(this)">► September (2)</span><div class="archive-posts-container">...</div></div>
+                                <div class="archive-month-item"><span class="archive-month-toggle" onclick="toggleArchive(this)">► August (3)</span><div class="archive-posts-container">...</div></div>
+                            </div>
+                        </div>
+                        <div class="archive-item"><span class="archive-year-toggle" onclick="toggleArchive(this)">► 2024 (11)</span><div class="archive-months-container">...</div></div>
+                        <div class="archive-item"><span class="archive-year-toggle" onclick="toggleArchive(this)">► 2022 (39)</span><div class="archive-months-container">...</div></div>
+                        <div class="archive-item"><span class="archive-year-toggle" onclick="toggleArchive(this)">► 2021 (25)</span><div class="archive-months-container">...</div></div>
+                        <div class="archive-item"><span class="archive-year-toggle" onclick="toggleArchive(this)">► 2020 (16)</span><div class="archive-months-container">...</div></div>
+                        <div class="archive-item"><span class="archive-year-toggle" onclick="toggleArchive(this)">► 2019 (21)</span><div class="archive-months-container">...</div></div>
+                        <div class="archive-item"><span class="archive-year-toggle" onclick="toggleArchive(this)">► 2017 (4)</span><div class="archive-months-container">...</div></div>
+                        <div class="archive-item"><span class="archive-year-toggle" onclick="toggleArchive(this)">► 2016 (8)</span><div class="archive-months-container">...</div></div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <div class="small fw-bold text-muted mb-1 telugu-text">బ్లాగ్ వీక్షకులు</div>
+                    <span class="badge bg-white text-dark border p-2 fw-bold fs-6">128,386</span>
+                    <div class="x-small text-muted mt-2">Followers</div>
                 </div>
             </div>
-            <hr class="my-5 border-secondary opacity-25">
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center small text-muted">
-                <p class="mb-0">&copy; 2026 భావవీణ సాహిత్య మాసపత్రిక. All rights reserved.</p>
-                <p class="mb-0 mt-2 mt-md-0">ISSN: 2456-4702 | Registered Journal</p>
+        </div>
+    </div>
+
+    <!-- REDESIGNED FOOTER -->
+    <footer class="journal-footer">
+        <div class="container pb-5">
+            <div class="row g-5">
+                <div class="col-lg-4 col-md-12 text-center text-lg-start">
+                    <span class="footer-logo">భావవీణ</span>
+                    <p class="mb-2 fw-bold text-white small">BHAVAVEENA-TELUGU JOURNAL</p>
+                    <p class="text-white-50 small mb-4">International Refereed Journal of Telugu Literary Culture and Language Studies. Established in 2004.</p>
+                    <div class="motto-box text-center"><span class="telugu-text text-white">"అందరూ బతకాలి అందరూ ఎదగాలి"</span></div>
+                    <div class="mt-4 text-center text-lg-start">
+                        <a href="#" class="social-circle"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-circle"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-circle"><i class="bi bi-youtube"></i></a>
+                        <a href="#" class="social-circle"><i class="bi bi-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-6">
+                    <h6 class="footer-heading">Journal</h6>
+                    <ul class="footer-links">
+                        <li><a href="javascript:void(0)" onclick="navigateTo('home', event)">Home</a></li>
+                        <li><a href="javascript:void(0)" onclick="navigateTo('current', event)">Current Issue</a></li>
+                        <li><a href="javascript:void(0)" onclick="navigateTo('archives', event)">Archives</a></li>
+                        <li><a href="javascript:void(0)" onclick="navigateTo('board', event)">Editorial Board</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 col-6">
+                    <h6 class="footer-heading">Author Resources</h6>
+                    <ul class="footer-links">
+                        <li><a href="javascript:void(0)" onclick="navigateTo('poets', event)">Telugu Poets</a></li>
+                        <li><a href="javascript:void(0)" onclick="navigateTo('submission', event)">Submission Guidelines</a></li>
+                        <li><a href="#">UGC CARE Portal</a></li>
+                        <li><a href="#">Copyright Information</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-12 text-center text-lg-start">
+                    <h6 class="footer-heading">Editorial Office</h6>
+                    <div class="footer-contact-item justify-content-center justify-content-lg-start"><div class="footer-contact-icon"><i class="bi bi-geo-alt"></i></div><div class="small text-white">GUNTUR, Andhra Pradesh, India.</div></div>
+                    <div class="footer-contact-item justify-content-center justify-content-lg-start"><div class="footer-contact-icon"><i class="bi bi-envelope"></i></div><div class="small text-white">bhavaveena2024@gmail.com</div></div>
+                    <div class="footer-contact-item justify-content-center justify-content-lg-start"><div class="footer-contact-icon"><i class="bi bi-whatsapp"></i></div><div class="small text-white">+91 73865 29274</div></div>
+                </div>
             </div>
         </div>
+        <div class="footer-bottom-bar text-center"><p class="mb-0 small">© 2026 BHAVAVEENA-TELUGU JOURNAL. ISSN: 2456-4702. All rights reserved.</p></div>
     </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
     <script>
-        // DATA
-        const BOOKS = [
-            { id: 1, title: 'జనవరి 2024 సంచిక', vol: '20', issue: '01', year: 2024, cover: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=600', editor: 'డాక్టర్ సురేష్ బాబు', pages: 124, desc: 'ఈ నెల సంచికలో ఆధునిక సాహిత్యం - సామాజిక బాధ్యత అనే అంశంపై ప్రత్యేక వ్యాసాలు ప్రచురించబడ్డాయి.' },
-            { id: 2, title: 'ఫిబ్రవరి 2024 సంచిక', vol: '20', issue: '02', year: 2024, cover: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=600', editor: 'డాక్టర్ సురేష్ బాబు', pages: 118, desc: 'సంప్రదాయ కవిత్వం మరియు వచన కవిత్వం మధ్య గల అవినాభావ సంబంధంపై విశ్లేషణాత్మక వ్యాసాలు.' },
-            { id: 3, title: 'మార్చి 2024 సంచిక', vol: '20', issue: '03', year: 2024, cover: 'https://images.unsplash.com/photo-1491843351663-7c1362e3476a?auto=format&fit=crop&q=80&w=600', editor: 'రామకృష్ణ మూర్తి', pages: 130, desc: 'మహిళా చైతన్యం మరియు సాహిత్య ప్రతిబింబం అనే అంశంపై ప్రత్యేక కథనం.' },
-            { id: 4, title: 'ఏప్రిల్ 2024 సంచిక', vol: '20', issue: '04', year: 2024, cover: 'https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&q=80&w=600', editor: 'రామకృష్ణ మూర్తి', pages: 112, desc: 'నవల - నవ సమాజం. తెలుగు నవలా సాహిత్యంలో వస్తున్న మార్పులపై చర్చ.' },
-            { id: 5, title: 'మే 2024 సంచిక', vol: '20', issue: '05', year: 2024, cover: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=600', editor: 'ఎస్. రమణి', pages: 120, desc: 'కవిత్వం నాటి నుండి నేటి వరకు. ఒక చారిత్రక విశ్లేషణ.' },
-            { id: 6, title: 'జూన్ 2024 సంచిక', vol: '20', issue: '06', year: 2024, cover: 'https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=600', editor: 'ఎస్. రమణి', pages: 128, desc: 'సాహిత్యంలో హాస్యం - ప్రాముఖ్యత.' },
-        ];
+        const POETS_DATA = {
+            "Ashtadiggajas": ["Allasani Peddana", "Nandi Thimmana", "Dhurjati", "Madayyagari Mallana", "Ayyalaraju Ramabhadrudu", "Ramarajabhushanudu", "Pingali Suranna", "Tenali Ramakrishna"],
+            "A": ["Aarudhra", "Umar Alisha", "Guda Anjaiah", "Kundurti Anjaneyulu", "Annamacharya", "Gurazada Apparao"],
+            "B": ["Bhadrachala Ramadasu", "Boyi Bhimanna"],
+            "C": ["Nanne Choda"],
+            "D": ["Daasarathi Krishnamacharyulu", "Deerghasi Vizai Bhaskar", "Saraswati Devi (scholar)", "Dhurjati"],
+            "G": ["Gaddar", "Gopana", "N. Gopi"],
+            "H": ["Suddala Hanmanthu"],
+            "I": ["Mohammad Ismail"],
+            "J": ["Jakkana", "Gurram Jashuva", "Jayaprabha"],
+            "K": ["Kasula Purushottama Kavi", "Tirupati Venkata Kavulu", "Krishnadhwari", "Nayani Krishnakumari", "Sri Kantha Krishnamacharyulu", "Devulapalli Krishnasastri", "Kshetrayya", "Vajjala Shiva Kumar", "Kuppambika"],
+            "L": ["Kapilavai Lingamurthy"],
+            "M": ["Madayyagari Mallana", "Mallinātha Sūri", "Atukuri Molla", "Muddupalani", "Bayya Suryanarayana Murthy", "Tummala Seetharama Murthy", "Ravula Suryanarayana Murty"],
+            "N": ["Pingali Nagendrarao", "P. Rangaiah Naidu", "Raghupathi Venkataratnam Naidu", "Nannayya", "Neeti Sastra"],
+            "P": ["Allasani Peddana", "Pingali Lakshmikantam", "Pothana", "Alishetty Prabhakar", "Kalekuri Prasad", "Vegunta Mohan Prasad", "Suravaram Pratapareddy"],
+            "R": ["Ayyalaraju Ramabhadrudu", "Ramarajabhushanudu", "Kalipatnam Ramarao", "T. Ramaswamy Choudary", "Duvvuru Ramireddy", "Dasaradhi Rangacharya", "Addepalli Ramamohana Rao", "Canchupati Venkatrao Venkaswami Rao", "Dadichiluka Veera Gouri Sankara Rao", "Garikapati Narasimha Rao", "Gudlavalleti Chalapati Rao", "I. Panduranga Rao", "Jaladi Raja Rao", "Kaloji Narayana Rao", "Katti Padma Rao", "Madiraju Ranga Rao", "Nanduri Venkata Subba Rao", "P. V. Narasimha Rao", "Pamulaparthi Sadasiva Rao", "Rayasam Seshagiri Rao", "Rao Venkata Kumara Mahipati Surya Rau", "Malliya Rechana", "Cattamanchi Ramalinga Reddy", "Gona Budda Reddy", "Nandini Sidda Reddy", "Vundela Malakonda Reddy"],
+            "S": ["Sarangapani", "Gunturu Seshendra Sarma", "Janamanchi Seshadri Sarma", "Chellapilla Venkata Sastry", "Divakarla Tirupati Sastry", "Sripada Krishnamurty Sastry", "Garimella Satyanarayana", "Viswanatha Satyanarayana", "Papineni Sivasankar", "Palkuriki Somanatha", "Ande Sri", "Srinatha", "Sri Sri (writer)", "Vaddadi Subbarayudu", "Allamraju Subrahmanyakavi", "Pingali Suranna"],
+            "T": ["Nandi Thimmana", "Tikkana", "Devarakonda Balagangadhara Tilak", "Tallapaka Tirumalamma"],
+            "U": ["Kavisekhara Dr Umar Alisha"],
+            "V": ["Vemana", "Tarigonda vengamamba", "Goreti Venkanna", "Nudurupati Venkanna", "Venkata Parvatiswara Kavulu", "Chemakura Venkataraju", "Diwakarla Venkatavadhani", "Veturi Sundararama Murthy"],
+            "Y": ["Yerrapragada"]
+        };
 
-        // ROUTING
-        function navigateTo(view, params = {}) {
+        const openDrawerBtn = document.getElementById('openDrawer');
+        const closeDrawerBtn = document.getElementById('closeDrawer');
+        const sideDrawer = document.getElementById('sideDrawer');
+        const backdrop = document.getElementById('drawerBackdrop');
+
+        function toggleDrawer(isOpen) {
+            if (isOpen) {
+                sideDrawer.classList.add('open');
+                backdrop.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            } else {
+                sideDrawer.classList.remove('open');
+                backdrop.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        }
+
+        openDrawerBtn.addEventListener('click', () => toggleDrawer(true));
+        closeDrawerBtn.addEventListener('click', () => toggleDrawer(false));
+        backdrop.addEventListener('click', () => toggleDrawer(false));
+
+        function toggleArchive(element) {
+            const container = element.nextElementSibling;
+            const isExpanding = container.style.display !== 'block';
+            container.style.display = isExpanding ? 'block' : 'none';
+            element.innerText = isExpanding ? element.innerText.replace('►', '▼') : element.innerText.replace('▼', '►');
+        }
+
+        function navigateTo(view, event) {
+            if (event) {
+                event.preventDefault();
+                toggleDrawer(false); // Close sidebar on selection
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                const desktopNavLink = document.getElementById(`nav-${view}`);
+                if (desktopNavLink) desktopNavLink.classList.add('active');
+            }
+
             const container = document.getElementById('view-container');
-            container.innerHTML = `<div class="text-center py-5"><div class="spinner-border text-maroon" role="status"></div></div>`;
+            container.innerHTML = `<div class="text-center py-5"><div class="spinner-border text-danger"></div></div>`;
             
             setTimeout(() => {
                 window.scrollTo(0, 0);
-                container.classList.remove('view-fade');
-                void container.offsetWidth; 
-                container.classList.add('view-fade');
+                container.innerHTML = '';
+                container.classList.remove('view-content');
+                void container.offsetWidth;
+                container.classList.add('view-content');
 
                 switch(view) {
                     case 'home': renderHome(); break;
-                    case 'archive': renderArchive(); break;
-                    case 'book': renderBookDetail(params.id); break;
-                    case 'about': renderAbout(); break;
+                    case 'pdf-reader': renderPDFReader(); break;
+                    case 'poets': renderPoets(); break;
+                    case 'board': renderBoard(); break;
+                    case 'archives': renderArchives(); break;
+                    case 'submission': renderSubmission(); break;
                     case 'contact': renderContact(); break;
-                    case 'submit': renderSubmit(); break;
+                    default: renderHome();
                 }
             }, 300);
         }
 
         function renderHome() {
-            const featured = BOOKS[0];
-            const others = BOOKS.slice(1, 5);
-
+            const bookCoverUrl = "https://lh3.googleusercontent.com/drive-viewer/AKGpihZjfMNyTp6gpYk4t8Mzr9cJOSEEBamce8fcgQ3HCQUf3WQsi8Uz8BJpBvHVC8k-T4LhYSbGnlNxLsqQZIo8PQAD9Bdznvbkf1w=s1600";
             document.getElementById('view-container').innerHTML = `
-                <div class="row g-5">
-                    <!-- MAIN FEED -->
-                    <div class="col-lg-8">
-                        <!-- HERO SECTION -->
-                        <div class="featured-hero mb-5">
-                            <div class="row g-0">
-                                <div class="col-md-5">
-                                    <img src="${featured.cover}" class="img-fluid h-100 object-fit-cover w-100" alt="New Release">
-                                </div>
-                                <div class="col-md-7 p-4 p-md-5 d-flex flex-column justify-content-center">
-                                    <span class="badge bg-danger mb-3 align-self-start py-2 px-3">తాజా సంచిక</span>
-                                    <h5 class="text-maroon small fw-bold mb-2">Volume ${featured.vol}, Issue ${featured.issue}</h5>
-                                    <h2 class="font-serif fw-bold mb-3 display-6">${featured.title}</h2>
-                                    <p class="text-muted telugu-text mb-4">${featured.desc}</p>
-                                    <button onclick="navigateTo('book', {id: ${featured.id}})" class="btn btn-brand align-self-start">చదవండి</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- RECENT GRID -->
-                        <h4 class="font-serif fw-bold border-bottom pb-3 mb-4">మునుపటి సంచికలు</h4>
-                        <div class="row g-4">
-                            ${others.map(book => `
-                                <div class="col-md-6">
-                                    <div class="card book-card h-100 shadow-sm" onclick="navigateTo('book', {id: ${book.id}})">
-                                        <div class="row g-0 h-100">
-                                            <div class="col-4">
-                                                <img src="${book.cover}" class="img-fluid h-100 object-fit-cover" alt="Cover">
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="card-body">
-                                                    <h6 class="text-maroon x-small fw-bold mb-1">${book.year}</h6>
-                                                    <h6 class="fw-bold telugu-text mb-2">${book.title}</h6>
-                                                    <p class="text-muted x-small mb-0 line-clamp-2">${book.desc}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                        <div class="text-center mt-5">
-                            <button onclick="navigateTo('archive')" class="btn btn-outline-dark rounded-0 px-5 fw-bold py-2">View Full Archive</button>
-                        </div>
-                    </div>
-
-                    <!-- SIDEBAR -->
-                    <div class="col-lg-4">
-                        <div class="sidebar-widget">
-                            <h6 class="widget-title">కాల్ ఫర్ పేపర్స్</h6>
-                            <p class="small telugu-text text-muted">మీ పరిశోధనా పత్రాలను జూలై 2024 సంచిక కోసం పంపండి. చివరి తేదీ: జూన్ 15, 2024.</p>
-                            <button onclick="navigateTo('submit')" class="btn btn-brand w-100 py-2">Submit Manuscript</button>
-                        </div>
-
-                        <div class="sidebar-widget bg-light border-0">
-                            <h6 class="widget-title">సంపాదక మండలి</h6>
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="bg-secondary rounded-circle me-3" style="width:40px;height:40px;"></div>
-                                <div>
-                                    <p class="small fw-bold mb-0">డాక్టర్ పి. వెంకటేశ్వర్లు</p>
-                                    <p class="x-small text-muted mb-0">ప్రధాన సంపాదకులు</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="bg-secondary rounded-circle me-3" style="width:40px;height:40px;"></div>
-                                <div>
-                                    <p class="small fw-bold mb-0">శ్రీమతి కె. లక్ష్మి</p>
-                                    <p class="x-small text-muted mb-0">సహ సంపాదకులు</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="sidebar-widget">
-                            <h6 class="widget-title">ముఖ్య గమనిక</h6>
-                            <div class="alert alert-warning border-0 small telugu-text mb-0">
-                                పాఠకులు తమ వార్షిక చందాను ఆన్లైన్ ద్వారా చెల్లించవచ్చు. మరిన్ని వివరాల కోసం సంప్రదించండి.
-                            </div>
+                <div class="mb-5 pb-3"><h2 class="section-header">Academic Welcome</h2><p class="telugu-text fs-5 text-secondary pe-lg-5">భావవీణ సాహిత్య మాసపత్రిక తెలుగు సాహిత్య పరిశోధకులకు మరియు విమర్శకులకు ఒక అగ్రగామి వేదిక.</p></div>
+                <div class="card border-0 bg-light p-4 p-md-5 mb-5 shadow-sm rounded-4 border">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-md-4"><img src="${bookCoverUrl}" class="img-fluid shadow rounded-3"></div>
+                        <div class="col-md-8">
+                            <span class="badge bg-danger mb-3 px-3 py-2 text-uppercase fw-bold">Latest Release</span>
+                            <h3 class="font-serif fw-bold display-6 mb-3">Bhavaveena Oct 2025</h3>
+                            <p class="text-muted small fw-bold mb-4">Released: 16 Dec 2025 | Volume 22, Issue 10</p>
+                            <p class="telugu-text small mb-4 lh-lg">ఈ అక్టోబర్ సంచికలో తెలుగు సాహిత్యం - సామాజిక చైతన్యం పై వచ్చిన ప్రత్యేక పరిశోధక వ్యాసాలను పొందుపరిచాము. భాషా శాస్త్రం నుండి ప్రాచీన సాహిత్యం వరకు పలు అంశాల విశ్లేషణ ఇక్కడ అందుబాటులో ఉంది.</p>
+                            <button onclick="navigateTo('pdf-reader', event)" class="btn btn-brand px-5 py-2 fw-bold shadow-sm"><i class="bi bi-book-half me-2"></i>READ ONLINE / PDF</button>
                         </div>
                     </div>
                 </div>
+                <h4 class="font-serif fw-bold border-bottom pb-3 mb-4 mt-5">Recent Research Articles</h4>
+                <div class="article-card"><div class="article-meta">Literature | Dec 2025</div><a href="javascript:void(0)" onclick="navigateTo('pdf-reader', event)" class="article-title telugu-text">ఆధునిక తెలుగు కవిత్వంపై పాశ్చాత్య సాహితీ ప్రభావం - ఒక సమగ్ర పరిశీలన</a><div class="article-authors text-maroon fw-bold">Dr. K. Srinivas Rao</div></div>
             `;
         }
 
-        function renderArchive() {
-            document.getElementById('view-container').innerHTML = `
-                <div class="text-center mb-5">
-                    <h2 class="font-serif fw-bold display-5">ఆర్కైవ్స్</h2>
-                    <p class="text-muted">గత రెండు దశాబ్దాల సాహిత్య భాండాగారం మీ కోసం.</p>
-                </div>
-
-                <div class="bg-white p-3 border mb-5 d-flex flex-wrap gap-4 align-items-center justify-content-between">
-                    <div class="d-flex gap-3">
-                        <select class="form-select form-select-sm border-0 bg-light" style="width:120px;">
-                            <option>Year: 2024</option>
-                            <option>2023</option>
-                            <option>2022</option>
-                        </select>
-                        <select class="form-select form-select-sm border-0 bg-light" style="width:140px;">
-                            <option>Volume: All</option>
-                            <option>Vol 20</option>
-                            <option>Vol 19</option>
-                        </select>
-                    </div>
-                    <div class="text-muted small fw-bold">Displaying 1 - ${BOOKS.length} of ${BOOKS.length} Issues</div>
-                </div>
-
-                <div class="row g-4">
-                    ${BOOKS.map(book => `
-                        <div class="col-6 col-md-4 col-lg-2">
-                            <div class="card book-card h-100 shadow-sm" onclick="navigateTo('book', {id: ${book.id}})">
-                                <img src="${book.cover}" class="card-img-top aspect-ratio-3-4 object-fit-cover" alt="Cover">
-                                <div class="card-body p-2 text-center">
-                                    <h6 class="small fw-bold telugu-text mb-1">${book.title}</h6>
-                                    <p class="x-small text-muted mb-0">Vol ${book.vol} • ${book.year}</p>
-                                </div>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-
-                <nav class="mt-5 d-flex justify-content-center">
-                    <ul class="pagination pagination-sm">
-                        <li class="page-item disabled"><a class="page-link" href="#">Prev</a></li>
-                        <li class="page-item active"><a class="page-link bg-maroon border-maroon" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link text-dark" href="#">Next</a></li>
-                    </ul>
-                </nav>
-            `;
+        function renderPoets() {
+            let html = `<h2 class="section-header">Telugu Poets (తెలుగు కవులు)</h2><p class="text-muted mb-4 telugu-text">ప్రముఖ కవుల వికీపీడియా ప్రొఫైల్స్ ఇక్కడ చూడవచ్చు.</p>`;
+            for (const key in POETS_DATA) {
+                html += `<div class="poet-letter-header">${key === 'Ashtadiggajas' ? 'AD' : key}</div>`;
+                POETS_DATA[key].forEach(name => {
+                    const wikiUrl = `https://en.wikipedia.org/wiki/${name.replace(/ /g, '_')}`;
+                    html += `<div class="poet-list-card"><a href="${wikiUrl}" target="_blank" class="poet-name telugu-text">${name}</a><a href="${wikiUrl}" target="_blank" class="btn btn-outline-secondary btn-sm rounded-pill px-3">Wikipedia</a></div>`;
+                });
+            }
+            document.getElementById('view-container').innerHTML = html;
         }
 
-        function renderBookDetail(id) {
-            const book = BOOKS.find(b => b.id === parseInt(id));
-            document.getElementById('view-container').innerHTML = `
-                <div class="row g-5">
-                    <div class="col-lg-4">
-                        <div class="sticky-top" style="top: 100px;">
-                            <img src="${book.cover}" class="img-fluid shadow-lg mb-4 w-100">
-                            <div class="bg-white p-4 border mb-4">
-                                <h4 class="font-serif fw-bold mb-3">${book.title}</h4>
-                                <div class="small space-y-3">
-                                    <div class="d-flex justify-content-between border-bottom pb-2">
-                                        <span class="text-muted">Editor</span>
-                                        <span class="fw-bold">${book.editor}</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between border-bottom pb-2 mt-2">
-                                        <span class="text-muted">Volume / Issue</span>
-                                        <span class="fw-bold">${book.vol} / ${book.issue}</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between border-bottom pb-2 mt-2">
-                                        <span class="text-muted">Release Year</span>
-                                        <span class="fw-bold">${book.year}</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between border-bottom pb-2 mt-2">
-                                        <span class="text-muted">Pages</span>
-                                        <span class="fw-bold">${book.pages}</span>
-                                    </div>
-                                </div>
-                                <div class="mt-4 gap-2 d-grid">
-                                    <button class="btn btn-brand py-2"><i class="bi bi-download me-2"></i> Download Full PDF</button>
-                                    <button class="btn btn-outline-dark rounded-0 py-2"><i class="bi bi-printer me-2"></i> Print Selected</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h6 class="fw-bold text-uppercase small text-muted tracking-widest mb-0">PDF Document Preview</h6>
-                            <div class="btn-group btn-group-sm">
-                                <button class="btn btn-light border"><i class="bi bi-zoom-in"></i></button>
-                                <button class="btn btn-light border"><i class="bi bi-zoom-out"></i></button>
-                                <button class="btn btn-light border"><i class="bi bi-arrows-fullscreen"></i></button>
-                            </div>
-                        </div>
-                        <div class="pdf-viewer-box">
-                            <div class="text-center text-muted">
-                                <i class="bi bi-file-earmark-pdf display-1 mb-3"></i>
-                                <h5 class="fw-bold">PDF.js Integration Point</h5>
-                                <p class="small">The viewer will load content for: <strong>${book.title}</strong></p>
-                                <div class="spinner-grow text-secondary spinner-grow-sm mt-3" role="status"></div>
-                            </div>
-                        </div>
-                        
-                        <!-- RELATED -->
-                        <div class="mt-5">
-                            <h5 class="font-serif fw-bold border-bottom pb-2 mb-4">మరికొన్ని సంచికలు</h5>
-                            <div class="row g-3">
-                                ${BOOKS.filter(b => b.id !== book.id).slice(0, 4).map(b => `
-                                    <div class="col-3">
-                                        <div class="card border-0 bg-transparent cursor-pointer" onclick="navigateTo('book', {id: ${b.id}})">
-                                            <img src="${b.cover}" class="card-img-top shadow-sm">
-                                            <div class="p-1 mt-1">
-                                                <p class="x-small fw-bold telugu-text mb-0 line-clamp-1">${b.title}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
+        function renderPDFReader() {
+            const embedUrl = "https://drive.google.com/file/d/12A6vi_SjT_29iR2gv2KJ2kQwJoIQ6BMX/preview";
+            document.getElementById('view-container').innerHTML = `<div class="mb-4 d-flex justify-content-between align-items-center"><h2 class="section-header mb-0">Reader Mode</h2><button onclick="navigateTo('home', event)" class="btn btn-outline-dark btn-sm rounded-pill px-4">Back</button></div><div class="pdf-viewer-container shadow-sm border"><iframe src="${embedUrl}" width="100%" height="800"></iframe></div>`;
         }
 
-        function renderAbout() {
-            document.getElementById('view-container').innerHTML = `
-                <div class="max-w-700 mx-auto">
-                    <div class="text-center mb-5">
-                        <h2 class="font-serif fw-bold display-5 text-maroon">పత్రిక గురించి</h2>
-                        <p class="text-muted">పరిరక్షణ - పరిశోధన - ప్రచురణ</p>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1513001900722-370f803f498d?auto=format&fit=crop&q=80&w=1200" class="img-fluid rounded shadow mb-5">
-                    <div class="telugu-text text-secondary lh-lg fs-5">
-                        <p class="mb-4">భావవీణ సాహిత్య మాసపత్రిక తెలుగు సాహిత్య లోకంలో ఒక విశిష్టమైన స్థానాన్ని సంపాదించుకుంది. 2004లో ప్రారంభమైన ఈ ప్రయాణం నేటికీ నిరంతరాయంగా కొనసాగుతోంది. </p>
-                        <p class="mb-4">సాహిత్య పరిశోధనలకు, విమర్శలకు పెద్దపీట వేస్తూ వస్తున్న ఈ పత్రిక, యూజీసీ కేర్ లిస్ట్ (UGC CARE LIST) లో స్థానం సంపాదించడం మా నాణ్యతకు నిదర్శనం. ప్రతి నెలా ప్రముఖ రచయితల వ్యాసాలు, కథలు, కవితలు మరియు సాహిత్య విశ్లేషణలతో పాఠకులను అలరిస్తోంది.</p>
-                        
-                        <div class="row g-4 my-5">
-                            <div class="col-md-6">
-                                <div class="p-4 bg-white border-start border-maroon border-4 shadow-sm h-100">
-                                    <h5 class="fw-bold mb-3">లక్ష్యం</h5>
-                                    <p class="small mb-0">తెలుగు భాషా వైభవాన్ని ప్రపంచానికి చాటిచెప్పడం మరియు నూతన సాహిత్య పరిశోధనలను ప్రోత్సహించడం.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="p-4 bg-white border-start border-warning border-4 shadow-sm h-100">
-                                    <h5 class="fw-bold mb-3">దృక్పథం</h5>
-                                    <p class="small mb-0">రాబోయే తరాలకు తెలుగు సాహిత్య వారసత్వాన్ని డిజిటల్ మరియు ముద్రణా మాధ్యమాల ద్వారా భద్రంగా అందించడం.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        function renderBoard() {
+             document.getElementById('view-container').innerHTML = `
+                <h2 class="section-header">Editorial Board</h2>
+                <div class="row g-4 mt-2">
+                    <div class="col-12"><div class="card border-0 p-4 bg-light rounded-4 d-flex flex-md-row align-items-center gap-4 shadow-sm">
+                        <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjoyOiLXZUHheLnR1NCmNtjez7OFaVazoU6FYg5q6G9oLhHH_bqLQ2zztqOS1fveW9iDyv_jmwJDEt1Uj8y-9NUIki8xpaNFYmJB0afbzW4048hcB02MK54pgl26epwkvOWchByZmqiQRr0Z9QsbOKDjDnNU2NVf7vx3Dx2N004wUiHCTalOsBDDCIhw6Jc=s200" class="rounded-4 sidebar-img" style="width:160px; height:160px;">
+                        <div><h4 class="fw-bold text-maroon mb-1 font-serif">Chief Editor</h4><h2 class="fw-bold">Dr. PAYARDA NAGAIAH</h2><p class="text-muted telugu-text">M.A(Telugu), M.A(Pol-Sci), M.Ed, Ph.D</p></div>
+                    </div></div>
+                    <div class="col-12"><div class="card border-0 p-4 bg-white shadow-sm border rounded-4 d-flex flex-md-row align-items-center gap-4">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxYB2OflEbQ2551vZ-ztR1W11z2nAB93xjcIlXyIGeE2K4bw5NZYM0BoWfMLbBHXLS7BxpsGp2oZw-PHN8jnfPUmuXmRhTeomwJKuHX_kEYMZNIPWVQGoDytoUfKOPrYhAA5PQLOxU3Mvj/s160/SHANTHI.jpg" class="rounded-4 sidebar-img" style="width:140px; height:140px;">
+                        <div><h4 class="fw-bold text-maroon mb-1 font-serif">Honourable Editor</h4><h2 class="fw-bold">Dr. PITTA SANTHI</h2><p class="text-muted telugu-text">MA(Tel), M.Sc(Psy), M.Ed, M.Phil(Edu), Ph.D</p></div>
+                    </div></div>
+                    <div class="col-12"><div class="card border-0 p-4 bg-white shadow-sm border rounded-4 d-flex flex-md-row align-items-center gap-4">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgpBDBIAFA6UC2OPglVEtR4OeAPM63IFwFDhohMvLrgwRcNYlRBeESGN91OiFnw8w-yxfsNshZCinoXU9nqaCattZAVIHPWhSOiD0Epc6FNoqDqA9S22JmrN4DS6tOchndkZwxUxWnN9oTx/s172/bvs2.jpg" class="rounded-4 sidebar-img" style="width:140px; height:140px;">
+                        <div><h4 class="fw-bold text-maroon mb-1 font-serif">Adviser</h4><h2 class="fw-bold">Dr. B. VENKATASWAMY</h2><p class="text-muted telugu-text">MA(Tel), M.A(Ling), M.A.(San), M.A(MCJ), Ph.D</p></div>
+                    </div></div>
                 </div>
-            `;
+             `;
         }
 
-        function renderContact() {
-            document.getElementById('view-container').innerHTML = `
-                <div class="row g-5">
-                    <div class="col-lg-6">
-                        <h2 class="font-serif fw-bold mb-4">సంప్రదించండి</h2>
-                        <p class="text-muted mb-5">మా పత్రిక గురించి ఏవైనా సందేహాలున్నా లేదా చందా వివరాల కోసమైనా మమ్మల్ని సంప్రదించవచ్చు.</p>
-                        
-                        <div class="card border-0 bg-white p-4 shadow-sm mb-4">
-                            <form onsubmit="event.preventDefault(); alert('Message sent successfully!');">
-                                <div class="mb-3">
-                                    <label class="form-label small fw-bold">పేరు</label>
-                                    <input type="text" class="form-control rounded-0" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label small fw-bold">ఈమెయిల్</label>
-                                    <input type="email" class="form-control rounded-0" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label small fw-bold">విషయం</label>
-                                    <select class="form-select rounded-0">
-                                        <option>సాధారణ సందేహం</option>
-                                        <option>చందా వివరాలు</option>
-                                        <option>సాహిత్య వ్యాసాల ప్రచురణ</option>
-                                    </select>
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label small fw-bold">సందేశం</label>
-                                    <textarea class="form-control rounded-0" rows="5" required></textarea>
-                                </div>
-                                <button class="btn btn-brand w-100 py-3">SEND MESSAGE</button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="p-lg-5">
-                            <h5 class="fw-bold border-bottom pb-3 mb-4">కార్యాలయ వివరాలు</h5>
-                            <div class="mb-4">
-                                <h6 class="fw-bold text-maroon mb-1 small uppercase">Address</h6>
-                                <p class="text-muted telugu-text">ప్లాట్ నెం. 45, సాహిత్య కాలనీ, పబ్లిక్ లైబ్రరీ దగ్గర, గుంటూరు - 522002.</p>
-                            </div>
-                            <div class="mb-4">
-                                <h6 class="fw-bold text-maroon mb-1 small uppercase">Contact No</h6>
-                                <p class="text-muted">+91 98480 12345 / 0863-2234567</p>
-                            </div>
-                            <div class="mb-4">
-                                <h6 class="fw-bold text-maroon mb-1 small uppercase">Social Media</h6>
-                                <div class="d-flex gap-3">
-                                    <a href="#" class="text-muted fs-4"><i class="bi bi-facebook"></i></a>
-                                    <a href="#" class="text-muted fs-4"><i class="bi bi-whatsapp"></i></a>
-                                    <a href="#" class="text-muted fs-4"><i class="bi bi-twitter-x"></i></a>
-                                </div>
-                            </div>
-                            <div class="bg-light p-4 text-center text-muted small border rounded">
-                                <i class="bi bi-geo-alt display-6 mb-3 d-block"></i>
-                                GUNTUR HEAD OFFICE MAP LOCATION
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
+        function renderArchives() { document.getElementById('view-container').innerHTML = `<h2 class="section-header">Research Archives</h2><div class="row g-4">${[2025, 2024, 2022, 2021, 2020].map(y => `<div class="col-md-4"><div class="p-4 border rounded-4 text-center hover-shadow transition"><h2>${y}</h2><button class="btn btn-outline-dark btn-sm rounded-pill px-4 mt-2">Browse Catalog</button></div></div>`).join('')}</div>`; }
+        function renderSubmission() { document.getElementById('view-container').innerHTML = `<h2 class="section-header">Manuscript Submission</h2><div class="bg-light p-4 rounded-4 border-start border-4 border-danger mb-5"><h5 class="fw-bold text-danger telugu-text">వ్యాస రచయితలకు విన్నపం</h5><p class="telugu-text mt-3">ISSN (2456--4702), UGC Approved (No 42500). వ్యాసాలను ప్రియాంక ఫాంట్ లో టైప్ చేసి 25 వ తేదీ లోపు bhavaveena2024@gmail.com కి పంపండి.</p></div>`; }
+        function renderContact() { document.getElementById('view-container').innerHTML = `<h2 class="section-header">Contact Us</h2><div class="row g-5"><div class="col-md-6"><h5 class="fw-bold text-maroon">Office Address</h5><p class="telugu-text lh-lg mt-3">భావవీణ సాహిత్య మాసపత్రిక, గుంటూరు జిల్లా, ఆంధ్రప్రదేశ్, 522002.</p><p class="mt-4"><strong>WhatsApp:</strong> +91 73865 29274</p></div></div>`; }
 
-        function renderSubmit() {
-            document.getElementById('view-container').innerHTML = `
-                <div class="max-w-800 mx-auto">
-                    <div class="text-center mb-5">
-                        <h2 class="font-serif fw-bold display-5 text-maroon">ప్రచురణ కోసం పంపండి</h2>
-                        <p class="text-muted telugu-text">మీ అమూల్యమైన వ్యాసాలను, కథలను మాతో పంచుకోండి.</p>
-                    </div>
-
-                    <div class="bg-white p-5 border shadow-sm">
-                        <div class="alert alert-info border-0 rounded-0 small mb-5">
-                            <i class="bi bi-info-circle-fill me-2"></i> గమనిక: అన్ని వ్యాసాలు యూనికోడ్ ఫాంట్ లో మాత్రమే ఉండాలి.
-                        </div>
-                        
-                        <h5 class="fw-bold mb-4 border-bottom pb-2">ప్రచురణ నియమావళి:</h5>
-                        <ul class="telugu-text small text-muted mb-5">
-                            <li>వ్యాసాలు గతంలో ఎక్కడా ప్రచురించబడకూడదు.</li>
-                            <li>పరిశోధనా పత్రాలు యూజీసీ (UGC) నియమ నిబంధనలకు అనుగుణంగా ఉండాలి.</li>
-                            <li>ప్రతి వ్యాసం కనీసం 1500 పదాలకు తక్కువ కాకుండా ఉండాలి.</li>
-                            <li>రచయిత వివరాలు మరియు ఫోటో తప్పనిసరిగా జతపరచాలి.</li>
-                        </ul>
-
-                        <div class="row g-4">
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold">Manuscript Title</label>
-                                <input type="text" class="form-control rounded-0">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold">Category</label>
-                                <select class="form-select rounded-0">
-                                    <option>కథ (Story)</option>
-                                    <option>కవిత (Poetry)</option>
-                                    <option>పరిశోధన (Research)</option>
-                                    <option>విమర్శ (Criticism)</option>
-                                </select>
-                            </div>
-                            <div class="col-12 mt-4">
-                                <div class="p-5 border-2 border-dashed text-center bg-light cursor-pointer">
-                                    <i class="bi bi-cloud-arrow-up display-3 text-muted"></i>
-                                    <p class="mb-0 mt-3 fw-bold text-muted">Drop your DOCX or PDF file here</p>
-                                    <p class="x-small text-muted mt-1">Maximum file size: 10MB</p>
-                                    <input type="file" class="d-none" id="realFile">
-                                    <button class="btn btn-outline-dark btn-sm rounded-0 mt-3 px-4" onclick="document.getElementById('realFile').click()">Browse Files</button>
-                                </div>
-                            </div>
-                            <div class="col-12 mt-5">
-                                <button class="btn btn-brand w-100 py-3 fw-bold shadow">SUBMIT FOR REVIEW</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // INIT
         window.onload = () => {
+            document.getElementById('current-date').innerText = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
             navigateTo('home');
         };
     </script>
