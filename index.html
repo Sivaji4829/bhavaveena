@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhavaveena | భావవీణ - Telugu Literary Journal</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --brand-maroon: #800000;
+            --brand-gold: #D4AF37;
+            --brand-paper: #fdfcf8;
+            --brand-dark: #1a1a1a;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Telugu', sans-serif;
+            background-color: var(--brand-paper);
+            color: var(--brand-dark);
+            overflow-x: hidden;
+        }
+
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .telugu-text { font-family: 'Noto Sans Telugu', sans-serif; line-height: 1.8; }
+
+        /* Smooth View Transitions */
+        .view-fade {
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: var(--brand-maroon);
+            color: rgba(255,255,255,0.8);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* Header & Logo */
+        header {
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+        .logo-text {
+            color: var(--brand-maroon);
+            font-weight: 700;
+            font-size: 4.5rem;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+        .logo-text:hover { opacity: 0.8; }
+
+        /* Navbar Customization */
+        .navbar {
+            background-color: white !important;
+            border-bottom: 1px solid #ddd;
+            padding: 0;
+        }
+        .nav-link {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--brand-dark) !important;
+            text-transform: uppercase;
+            padding: 1.25rem 1rem !important;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition-smooth);
+        }
+        .nav-link:hover {
+            color: var(--brand-maroon) !important;
+            border-bottom-color: var(--brand-maroon);
+        }
+
+        /* Cards & Components */
+        .book-card {
+            border: none;
+            background: white;
+            transition: var(--transition-smooth);
+            border-bottom: 3px solid transparent;
+        }
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-bottom-color: var(--brand-maroon);
+        }
+        .featured-hero {
+            background: white;
+            border: 1px solid #eee;
+            transition: var(--transition-smooth);
+        }
+        .featured-hero:hover {
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        /* PDF Viewer Placeholder */
+        .pdf-viewer-box {
+            background: #f0f0f0;
+            border: 2px dashed #ccc;
+            height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Sidebar Widgets */
+        .sidebar-widget {
+            background: white;
+            padding: 1.5rem;
+            border: 1px solid #eee;
+            margin-bottom: 2rem;
+        }
+        .widget-title {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--brand-maroon);
+            border-bottom: 2px solid var(--brand-maroon);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        footer {
+            background: var(--brand-dark);
+            color: #aaa;
+            border-top: 6px solid var(--brand-maroon);
+        }
+
+        .btn-brand {
+            background-color: var(--brand-maroon);
+            color: white;
+            border-radius: 0;
+            font-weight: 600;
+            padding: 0.6rem 1.5rem;
+            transition: var(--transition-smooth);
+        }
+        .btn-brand:hover {
+            background-color: #5a0000;
+            color: white;
+            box-shadow: 0 4px 12px rgba(128,0,0,0.2);
+        }
+
+        /* Sticky Nav Fix */
+        .sticky-top {
+            z-index: 1020;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP INFO BAR -->
+    <div class="top-bar py-2 d-none d-md-block">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div id="current-date">ఫిబ్రవరి 13, 2026</div>
+            <div class="d-flex gap-4">
+                <a href="#" class="text-white text-decoration-none">Archives</a>
+                <a href="#" class="text-white text-decoration-none">ISSN: 2456-4702</a>
+                <a href="#" class="text-white text-decoration-none">Subscribe</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="py-5">
+        <div class="container text-center">
+            <h1 class="logo-text font-serif mb-0" onclick="navigateTo('home')">భావవీణ</h1>
+            <p class="text-uppercase tracking-widest small fw-bold text-muted mt-2">Bhavaveena Literary & Cultural Monthly Journal</p>
+            <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
+                <span class="badge bg-light text-dark border">ESTD 2004</span>
+                <span class="text-maroon">|</span>
+                <span class="small fw-semibold text-secondary">UGC CARE LISTED</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="navigateTo('home')">హోమ్</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="navigateTo('archive')">పుస్తకాలు</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="navigateTo('about')">మా గురించి</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="navigateTo('submit')">ప్రచురణకు పంపండి</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="navigateTo('contact')">సంప్రదించండి</a></li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control border-end-0" placeholder="వెతకండి...">
+                        <span class="input-group-text bg-white border-start-0 text-muted"><i class="bi bi-search"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENT WRAPPER -->
+    <main class="container py-5 min-vh-100" id="view-container">
+        <!-- Content will be injected here via JavaScript -->
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-5 mt-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-5">
+                    <h2 class="font-serif text-white mb-4">భావవీణ</h2>
+                    <p class="telugu-text small pe-lg-5">
+                        తెలుగు సాహిత్య వికాసానికి, పరిశోధనకు భావవీణ ఒక దిక్సూచిగా పనిచేస్తోంది. గత రెండు దశాబ్దాలుగా వేలమంది రచయితలకు, పరిశోధకులకు ఈ పత్రిక వేదికగా నిలిచింది.
+                    </p>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle p-2" style="width:35px;height:35px;"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle p-2" style="width:35px;height:35px;"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle p-2" style="width:35px;height:35px;"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="text-white text-uppercase small fw-bold mb-4 tracking-widest">త్వరిత లింకులు</h6>
+                    <ul class="list-unstyled small space-y-2">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-white">Editorial Board</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-white">Submission Guidelines</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-white">Subscription Plans</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="text-white text-uppercase small fw-bold mb-4 tracking-widest">కార్యాలయం</h6>
+                    <address class="small text-muted lh-lg">
+                        <i class="bi bi-geo-alt-fill me-2 text-maroon"></i> ప్లాట్ నెం. 45, సాహిత్య కాలనీ,<br>
+                        పబ్లిక్ లైబ్రరీ దగ్గర, గుంటూరు, 522002.<br>
+                        <i class="bi bi-envelope-fill me-2 text-maroon mt-3"></i> editor@bhavaveena.com<br>
+                        <i class="bi bi-telephone-fill me-2 text-maroon mt-2"></i> +91 98480 12345
+                    </address>
+                </div>
+            </div>
+            <hr class="my-5 border-secondary opacity-25">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center small text-muted">
+                <p class="mb-0">&copy; 2026 భావవీణ సాహిత్య మాసపత్రిక. All rights reserved.</p>
+                <p class="mb-0 mt-2 mt-md-0">ISSN: 2456-4702 | Registered Journal</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // DATA
+        const BOOKS = [
+            { id: 1, title: 'జనవరి 2024 సంచిక', vol: '20', issue: '01', year: 2024, cover: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=600', editor: 'డాక్టర్ సురేష్ బాబు', pages: 124, desc: 'ఈ నెల సంచికలో ఆధునిక సాహిత్యం - సామాజిక బాధ్యత అనే అంశంపై ప్రత్యేక వ్యాసాలు ప్రచురించబడ్డాయి.' },
+            { id: 2, title: 'ఫిబ్రవరి 2024 సంచిక', vol: '20', issue: '02', year: 2024, cover: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=600', editor: 'డాక్టర్ సురేష్ బాబు', pages: 118, desc: 'సంప్రదాయ కవిత్వం మరియు వచన కవిత్వం మధ్య గల అవినాభావ సంబంధంపై విశ్లేషణాత్మక వ్యాసాలు.' },
+            { id: 3, title: 'మార్చి 2024 సంచిక', vol: '20', issue: '03', year: 2024, cover: 'https://images.unsplash.com/photo-1491843351663-7c1362e3476a?auto=format&fit=crop&q=80&w=600', editor: 'రామకృష్ణ మూర్తి', pages: 130, desc: 'మహిళా చైతన్యం మరియు సాహిత్య ప్రతిబింబం అనే అంశంపై ప్రత్యేక కథనం.' },
+            { id: 4, title: 'ఏప్రిల్ 2024 సంచిక', vol: '20', issue: '04', year: 2024, cover: 'https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&q=80&w=600', editor: 'రామకృష్ణ మూర్తి', pages: 112, desc: 'నవల - నవ సమాజం. తెలుగు నవలా సాహిత్యంలో వస్తున్న మార్పులపై చర్చ.' },
+            { id: 5, title: 'మే 2024 సంచిక', vol: '20', issue: '05', year: 2024, cover: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=600', editor: 'ఎస్. రమణి', pages: 120, desc: 'కవిత్వం నాటి నుండి నేటి వరకు. ఒక చారిత్రక విశ్లేషణ.' },
+            { id: 6, title: 'జూన్ 2024 సంచిక', vol: '20', issue: '06', year: 2024, cover: 'https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=600', editor: 'ఎస్. రమణి', pages: 128, desc: 'సాహిత్యంలో హాస్యం - ప్రాముఖ్యత.' },
+        ];
+
+        // ROUTING
+        function navigateTo(view, params = {}) {
+            const container = document.getElementById('view-container');
+            container.innerHTML = `<div class="text-center py-5"><div class="spinner-border text-maroon" role="status"></div></div>`;
+            
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+                container.classList.remove('view-fade');
+                void container.offsetWidth; 
+                container.classList.add('view-fade');
+
+                switch(view) {
+                    case 'home': renderHome(); break;
+                    case 'archive': renderArchive(); break;
+                    case 'book': renderBookDetail(params.id); break;
+                    case 'about': renderAbout(); break;
+                    case 'contact': renderContact(); break;
+                    case 'submit': renderSubmit(); break;
+                }
+            }, 300);
+        }
+
+        function renderHome() {
+            const featured = BOOKS[0];
+            const others = BOOKS.slice(1, 5);
+
+            document.getElementById('view-container').innerHTML = `
+                <div class="row g-5">
+                    <!-- MAIN FEED -->
+                    <div class="col-lg-8">
+                        <!-- HERO SECTION -->
+                        <div class="featured-hero mb-5">
+                            <div class="row g-0">
+                                <div class="col-md-5">
+                                    <img src="${featured.cover}" class="img-fluid h-100 object-fit-cover w-100" alt="New Release">
+                                </div>
+                                <div class="col-md-7 p-4 p-md-5 d-flex flex-column justify-content-center">
+                                    <span class="badge bg-danger mb-3 align-self-start py-2 px-3">తాజా సంచిక</span>
+                                    <h5 class="text-maroon small fw-bold mb-2">Volume ${featured.vol}, Issue ${featured.issue}</h5>
+                                    <h2 class="font-serif fw-bold mb-3 display-6">${featured.title}</h2>
+                                    <p class="text-muted telugu-text mb-4">${featured.desc}</p>
+                                    <button onclick="navigateTo('book', {id: ${featured.id}})" class="btn btn-brand align-self-start">చదవండి</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RECENT GRID -->
+                        <h4 class="font-serif fw-bold border-bottom pb-3 mb-4">మునుపటి సంచికలు</h4>
+                        <div class="row g-4">
+                            ${others.map(book => `
+                                <div class="col-md-6">
+                                    <div class="card book-card h-100 shadow-sm" onclick="navigateTo('book', {id: ${book.id}})">
+                                        <div class="row g-0 h-100">
+                                            <div class="col-4">
+                                                <img src="${book.cover}" class="img-fluid h-100 object-fit-cover" alt="Cover">
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="card-body">
+                                                    <h6 class="text-maroon x-small fw-bold mb-1">${book.year}</h6>
+                                                    <h6 class="fw-bold telugu-text mb-2">${book.title}</h6>
+                                                    <p class="text-muted x-small mb-0 line-clamp-2">${book.desc}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="text-center mt-5">
+                            <button onclick="navigateTo('archive')" class="btn btn-outline-dark rounded-0 px-5 fw-bold py-2">View Full Archive</button>
+                        </div>
+                    </div>
+
+                    <!-- SIDEBAR -->
+                    <div class="col-lg-4">
+                        <div class="sidebar-widget">
+                            <h6 class="widget-title">కాల్ ఫర్ పేపర్స్</h6>
+                            <p class="small telugu-text text-muted">మీ పరిశోధనా పత్రాలను జూలై 2024 సంచిక కోసం పంపండి. చివరి తేదీ: జూన్ 15, 2024.</p>
+                            <button onclick="navigateTo('submit')" class="btn btn-brand w-100 py-2">Submit Manuscript</button>
+                        </div>
+
+                        <div class="sidebar-widget bg-light border-0">
+                            <h6 class="widget-title">సంపాదక మండలి</h6>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-secondary rounded-circle me-3" style="width:40px;height:40px;"></div>
+                                <div>
+                                    <p class="small fw-bold mb-0">డాక్టర్ పి. వెంకటేశ్వర్లు</p>
+                                    <p class="x-small text-muted mb-0">ప్రధాన సంపాదకులు</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-secondary rounded-circle me-3" style="width:40px;height:40px;"></div>
+                                <div>
+                                    <p class="small fw-bold mb-0">శ్రీమతి కె. లక్ష్మి</p>
+                                    <p class="x-small text-muted mb-0">సహ సంపాదకులు</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-widget">
+                            <h6 class="widget-title">ముఖ్య గమనిక</h6>
+                            <div class="alert alert-warning border-0 small telugu-text mb-0">
+                                పాఠకులు తమ వార్షిక చందాను ఆన్లైన్ ద్వారా చెల్లించవచ్చు. మరిన్ని వివరాల కోసం సంప్రదించండి.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderArchive() {
+            document.getElementById('view-container').innerHTML = `
+                <div class="text-center mb-5">
+                    <h2 class="font-serif fw-bold display-5">ఆర్కైవ్స్</h2>
+                    <p class="text-muted">గత రెండు దశాబ్దాల సాహిత్య భాండాగారం మీ కోసం.</p>
+                </div>
+
+                <div class="bg-white p-3 border mb-5 d-flex flex-wrap gap-4 align-items-center justify-content-between">
+                    <div class="d-flex gap-3">
+                        <select class="form-select form-select-sm border-0 bg-light" style="width:120px;">
+                            <option>Year: 2024</option>
+                            <option>2023</option>
+                            <option>2022</option>
+                        </select>
+                        <select class="form-select form-select-sm border-0 bg-light" style="width:140px;">
+                            <option>Volume: All</option>
+                            <option>Vol 20</option>
+                            <option>Vol 19</option>
+                        </select>
+                    </div>
+                    <div class="text-muted small fw-bold">Displaying 1 - ${BOOKS.length} of ${BOOKS.length} Issues</div>
+                </div>
+
+                <div class="row g-4">
+                    ${BOOKS.map(book => `
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card book-card h-100 shadow-sm" onclick="navigateTo('book', {id: ${book.id}})">
+                                <img src="${book.cover}" class="card-img-top aspect-ratio-3-4 object-fit-cover" alt="Cover">
+                                <div class="card-body p-2 text-center">
+                                    <h6 class="small fw-bold telugu-text mb-1">${book.title}</h6>
+                                    <p class="x-small text-muted mb-0">Vol ${book.vol} • ${book.year}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <nav class="mt-5 d-flex justify-content-center">
+                    <ul class="pagination pagination-sm">
+                        <li class="page-item disabled"><a class="page-link" href="#">Prev</a></li>
+                        <li class="page-item active"><a class="page-link bg-maroon border-maroon" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link text-dark" href="#">Next</a></li>
+                    </ul>
+                </nav>
+            `;
+        }
+
+        function renderBookDetail(id) {
+            const book = BOOKS.find(b => b.id === parseInt(id));
+            document.getElementById('view-container').innerHTML = `
+                <div class="row g-5">
+                    <div class="col-lg-4">
+                        <div class="sticky-top" style="top: 100px;">
+                            <img src="${book.cover}" class="img-fluid shadow-lg mb-4 w-100">
+                            <div class="bg-white p-4 border mb-4">
+                                <h4 class="font-serif fw-bold mb-3">${book.title}</h4>
+                                <div class="small space-y-3">
+                                    <div class="d-flex justify-content-between border-bottom pb-2">
+                                        <span class="text-muted">Editor</span>
+                                        <span class="fw-bold">${book.editor}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between border-bottom pb-2 mt-2">
+                                        <span class="text-muted">Volume / Issue</span>
+                                        <span class="fw-bold">${book.vol} / ${book.issue}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between border-bottom pb-2 mt-2">
+                                        <span class="text-muted">Release Year</span>
+                                        <span class="fw-bold">${book.year}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between border-bottom pb-2 mt-2">
+                                        <span class="text-muted">Pages</span>
+                                        <span class="fw-bold">${book.pages}</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 gap-2 d-grid">
+                                    <button class="btn btn-brand py-2"><i class="bi bi-download me-2"></i> Download Full PDF</button>
+                                    <button class="btn btn-outline-dark rounded-0 py-2"><i class="bi bi-printer me-2"></i> Print Selected</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="fw-bold text-uppercase small text-muted tracking-widest mb-0">PDF Document Preview</h6>
+                            <div class="btn-group btn-group-sm">
+                                <button class="btn btn-light border"><i class="bi bi-zoom-in"></i></button>
+                                <button class="btn btn-light border"><i class="bi bi-zoom-out"></i></button>
+                                <button class="btn btn-light border"><i class="bi bi-arrows-fullscreen"></i></button>
+                            </div>
+                        </div>
+                        <div class="pdf-viewer-box">
+                            <div class="text-center text-muted">
+                                <i class="bi bi-file-earmark-pdf display-1 mb-3"></i>
+                                <h5 class="fw-bold">PDF.js Integration Point</h5>
+                                <p class="small">The viewer will load content for: <strong>${book.title}</strong></p>
+                                <div class="spinner-grow text-secondary spinner-grow-sm mt-3" role="status"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- RELATED -->
+                        <div class="mt-5">
+                            <h5 class="font-serif fw-bold border-bottom pb-2 mb-4">మరికొన్ని సంచికలు</h5>
+                            <div class="row g-3">
+                                ${BOOKS.filter(b => b.id !== book.id).slice(0, 4).map(b => `
+                                    <div class="col-3">
+                                        <div class="card border-0 bg-transparent cursor-pointer" onclick="navigateTo('book', {id: ${b.id}})">
+                                            <img src="${b.cover}" class="card-img-top shadow-sm">
+                                            <div class="p-1 mt-1">
+                                                <p class="x-small fw-bold telugu-text mb-0 line-clamp-1">${b.title}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAbout() {
+            document.getElementById('view-container').innerHTML = `
+                <div class="max-w-700 mx-auto">
+                    <div class="text-center mb-5">
+                        <h2 class="font-serif fw-bold display-5 text-maroon">పత్రిక గురించి</h2>
+                        <p class="text-muted">పరిరక్షణ - పరిశోధన - ప్రచురణ</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1513001900722-370f803f498d?auto=format&fit=crop&q=80&w=1200" class="img-fluid rounded shadow mb-5">
+                    <div class="telugu-text text-secondary lh-lg fs-5">
+                        <p class="mb-4">భావవీణ సాహిత్య మాసపత్రిక తెలుగు సాహిత్య లోకంలో ఒక విశిష్టమైన స్థానాన్ని సంపాదించుకుంది. 2004లో ప్రారంభమైన ఈ ప్రయాణం నేటికీ నిరంతరాయంగా కొనసాగుతోంది. </p>
+                        <p class="mb-4">సాహిత్య పరిశోధనలకు, విమర్శలకు పెద్దపీట వేస్తూ వస్తున్న ఈ పత్రిక, యూజీసీ కేర్ లిస్ట్ (UGC CARE LIST) లో స్థానం సంపాదించడం మా నాణ్యతకు నిదర్శనం. ప్రతి నెలా ప్రముఖ రచయితల వ్యాసాలు, కథలు, కవితలు మరియు సాహిత్య విశ్లేషణలతో పాఠకులను అలరిస్తోంది.</p>
+                        
+                        <div class="row g-4 my-5">
+                            <div class="col-md-6">
+                                <div class="p-4 bg-white border-start border-maroon border-4 shadow-sm h-100">
+                                    <h5 class="fw-bold mb-3">లక్ష్యం</h5>
+                                    <p class="small mb-0">తెలుగు భాషా వైభవాన్ని ప్రపంచానికి చాటిచెప్పడం మరియు నూతన సాహిత్య పరిశోధనలను ప్రోత్సహించడం.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-4 bg-white border-start border-warning border-4 shadow-sm h-100">
+                                    <h5 class="fw-bold mb-3">దృక్పథం</h5>
+                                    <p class="small mb-0">రాబోయే తరాలకు తెలుగు సాహిత్య వారసత్వాన్ని డిజిటల్ మరియు ముద్రణా మాధ్యమాల ద్వారా భద్రంగా అందించడం.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderContact() {
+            document.getElementById('view-container').innerHTML = `
+                <div class="row g-5">
+                    <div class="col-lg-6">
+                        <h2 class="font-serif fw-bold mb-4">సంప్రదించండి</h2>
+                        <p class="text-muted mb-5">మా పత్రిక గురించి ఏవైనా సందేహాలున్నా లేదా చందా వివరాల కోసమైనా మమ్మల్ని సంప్రదించవచ్చు.</p>
+                        
+                        <div class="card border-0 bg-white p-4 shadow-sm mb-4">
+                            <form onsubmit="event.preventDefault(); alert('Message sent successfully!');">
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold">పేరు</label>
+                                    <input type="text" class="form-control rounded-0" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold">ఈమెయిల్</label>
+                                    <input type="email" class="form-control rounded-0" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold">విషయం</label>
+                                    <select class="form-select rounded-0">
+                                        <option>సాధారణ సందేహం</option>
+                                        <option>చందా వివరాలు</option>
+                                        <option>సాహిత్య వ్యాసాల ప్రచురణ</option>
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label small fw-bold">సందేశం</label>
+                                    <textarea class="form-control rounded-0" rows="5" required></textarea>
+                                </div>
+                                <button class="btn btn-brand w-100 py-3">SEND MESSAGE</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-lg-5">
+                            <h5 class="fw-bold border-bottom pb-3 mb-4">కార్యాలయ వివరాలు</h5>
+                            <div class="mb-4">
+                                <h6 class="fw-bold text-maroon mb-1 small uppercase">Address</h6>
+                                <p class="text-muted telugu-text">ప్లాట్ నెం. 45, సాహిత్య కాలనీ, పబ్లిక్ లైబ్రరీ దగ్గర, గుంటూరు - 522002.</p>
+                            </div>
+                            <div class="mb-4">
+                                <h6 class="fw-bold text-maroon mb-1 small uppercase">Contact No</h6>
+                                <p class="text-muted">+91 98480 12345 / 0863-2234567</p>
+                            </div>
+                            <div class="mb-4">
+                                <h6 class="fw-bold text-maroon mb-1 small uppercase">Social Media</h6>
+                                <div class="d-flex gap-3">
+                                    <a href="#" class="text-muted fs-4"><i class="bi bi-facebook"></i></a>
+                                    <a href="#" class="text-muted fs-4"><i class="bi bi-whatsapp"></i></a>
+                                    <a href="#" class="text-muted fs-4"><i class="bi bi-twitter-x"></i></a>
+                                </div>
+                            </div>
+                            <div class="bg-light p-4 text-center text-muted small border rounded">
+                                <i class="bi bi-geo-alt display-6 mb-3 d-block"></i>
+                                GUNTUR HEAD OFFICE MAP LOCATION
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSubmit() {
+            document.getElementById('view-container').innerHTML = `
+                <div class="max-w-800 mx-auto">
+                    <div class="text-center mb-5">
+                        <h2 class="font-serif fw-bold display-5 text-maroon">ప్రచురణ కోసం పంపండి</h2>
+                        <p class="text-muted telugu-text">మీ అమూల్యమైన వ్యాసాలను, కథలను మాతో పంచుకోండి.</p>
+                    </div>
+
+                    <div class="bg-white p-5 border shadow-sm">
+                        <div class="alert alert-info border-0 rounded-0 small mb-5">
+                            <i class="bi bi-info-circle-fill me-2"></i> గమనిక: అన్ని వ్యాసాలు యూనికోడ్ ఫాంట్ లో మాత్రమే ఉండాలి.
+                        </div>
+                        
+                        <h5 class="fw-bold mb-4 border-bottom pb-2">ప్రచురణ నియమావళి:</h5>
+                        <ul class="telugu-text small text-muted mb-5">
+                            <li>వ్యాసాలు గతంలో ఎక్కడా ప్రచురించబడకూడదు.</li>
+                            <li>పరిశోధనా పత్రాలు యూజీసీ (UGC) నియమ నిబంధనలకు అనుగుణంగా ఉండాలి.</li>
+                            <li>ప్రతి వ్యాసం కనీసం 1500 పదాలకు తక్కువ కాకుండా ఉండాలి.</li>
+                            <li>రచయిత వివరాలు మరియు ఫోటో తప్పనిసరిగా జతపరచాలి.</li>
+                        </ul>
+
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Manuscript Title</label>
+                                <input type="text" class="form-control rounded-0">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Category</label>
+                                <select class="form-select rounded-0">
+                                    <option>కథ (Story)</option>
+                                    <option>కవిత (Poetry)</option>
+                                    <option>పరిశోధన (Research)</option>
+                                    <option>విమర్శ (Criticism)</option>
+                                </select>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <div class="p-5 border-2 border-dashed text-center bg-light cursor-pointer">
+                                    <i class="bi bi-cloud-arrow-up display-3 text-muted"></i>
+                                    <p class="mb-0 mt-3 fw-bold text-muted">Drop your DOCX or PDF file here</p>
+                                    <p class="x-small text-muted mt-1">Maximum file size: 10MB</p>
+                                    <input type="file" class="d-none" id="realFile">
+                                    <button class="btn btn-outline-dark btn-sm rounded-0 mt-3 px-4" onclick="document.getElementById('realFile').click()">Browse Files</button>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-5">
+                                <button class="btn btn-brand w-100 py-3 fw-bold shadow">SUBMIT FOR REVIEW</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // INIT
+        window.onload = () => {
+            navigateTo('home');
+        };
+    </script>
+</body>
+</html>
